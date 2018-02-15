@@ -20,7 +20,7 @@
     public function __construct() {
       // set DSN
       $dsn = "mysql:host=$this->host;dbname=$this->dbname";
-      // Some DB PDO connection openssl_get_cert_locations
+      // Some DB PDO connection options
       $options = array(
         PDO::ATTR_PERSISTENT => true,
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -48,11 +48,11 @@
           case is_bool($value):
             $type = PDO::PARAM_BOOL;
             break;
-          case is_null($value):
-            $type = PDO::PARAM_NULL;
+          case is_string($value):
+            $type = PDO::PARAM_STR;
             break;
           default:
-            $type = PDO::PARAM_STR;
+            $type = PDO::PARAM_NULL;
             break;
         }
       }
@@ -62,7 +62,7 @@
 
     // method to execute the query
     public function execute() {
-      $this->stmt->execute();
+      return $this->stmt->execute();
     }
     // method to return a result set
     public function resultSet() {
